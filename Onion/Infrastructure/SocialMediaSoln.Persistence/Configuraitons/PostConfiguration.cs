@@ -9,7 +9,6 @@ namespace SocialMediaSoln.Persistence.Configuraitons
         public void Configure(EntityTypeBuilder<Post> builder)
         {
             builder.HasOne(x => x.AppUser).WithMany(x => x.Posts).HasForeignKey(x => x.AppUserId);
-            builder.HasOne(x => x.Community).WithMany(x => x.Posts).HasForeignKey(x => x.CommunityId);
         }
     }
 }

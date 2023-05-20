@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SocialMediaSoln.Persistence.Configuraitons
 {
-    public class LikeConfiguration : IEntityTypeConfiguration<Like>
+    public class FollowingConfiguration : IEntityTypeConfiguration<Following>
     {
-        public void Configure(EntityTypeBuilder<Like> builder)
+        public void Configure(EntityTypeBuilder<Following> builder)
         {
-            builder.HasOne(x => x.Post).WithMany(x => x.Likes).HasForeignKey(x => x.PostId);
+            builder.HasOne(x => x.AppUser).WithMany(x => x.Followings).HasForeignKey(x => x.AppUserId);
         }
     }
 }

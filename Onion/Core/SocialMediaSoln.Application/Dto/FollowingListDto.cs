@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SocialMediaSoln.Domain.Entities
+namespace SocialMediaSoln.Application.Dto
 {
-    public class Following//Takip ettiklerim
+    public class FollowingListDto
     {
         public int Id { get; set; }
         public int AppUserId { get; set; }
-        public AppUser? AppUser { get; set; }
     }
 }

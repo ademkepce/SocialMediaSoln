@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SocialMediaSoln.Persistence.Configuraitons
 {
-    internal class CommentConfiguration : IEntityTypeConfiguration<Comment>
+    public class CommentConfiguration : IEntityTypeConfiguration<Comment>
     {
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.HasOne(x => x.AppUser).WithMany(x => x.Comments).HasForeignKey(x => x.AppUserId);
+            builder.HasOne(x => x.Post).WithMany(x => x.Comments).HasForeignKey(x => x.PostId);
         }
     }
 }

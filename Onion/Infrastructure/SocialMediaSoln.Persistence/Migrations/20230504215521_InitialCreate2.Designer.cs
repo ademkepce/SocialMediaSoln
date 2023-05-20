@@ -11,8 +11,8 @@ using SocialMediaSoln.Persistence.Context;
 namespace SocialMediaSoln.Persistence.Migrations
 {
     [DbContext(typeof(JwtContext))]
-    [Migration("20230414221427_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230504215521_InitialCreate2")]
+    partial class InitialCreate2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,9 @@ namespace SocialMediaSoln.Persistence.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProfileImagUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
@@ -59,42 +62,20 @@ namespace SocialMediaSoln.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
 
                     b.Property<string>("PublishedDate")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
+                    b.HasIndex("PostId");
 
                     b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("SocialMediaSoln.Domain.Entities.Community", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CommunityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Members")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Communities");
                 });
 
             modelBuilder.Entity("SocialMediaSoln.Domain.Entities.Follower", b =>
@@ -105,10 +86,12 @@ namespace SocialMediaSoln.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("FollowerId")
+                    b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Followers");
                 });
@@ -121,33 +104,14 @@ namespace SocialMediaSoln.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("FollowingId")
+                    b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Followings");
-                });
-
-            modelBuilder.Entity("SocialMediaSoln.Domain.Entities.Like", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("SocialMediaSoln.Domain.Entities.Post", b =>
@@ -161,14 +125,11 @@ namespace SocialMediaSoln.Persistence.Migrations
                     b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Comments")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CommunityId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LikeCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("PublishedDate")
                         .HasColumnType("nvarchar(max)");
@@ -180,26 +141,13 @@ namespace SocialMediaSoln.Persistence.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("CommunityId");
-
                     b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("SocialMediaSoln.Domain.Entities.Comment", b =>
                 {
-                    b.HasOne("SocialMediaSoln.Domain.Entities.AppUser", "AppUser")
-                        .WithMany("Comments")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
-            modelBuilder.Entity("SocialMediaSoln.Domain.Entities.Like", b =>
-                {
                     b.HasOne("SocialMediaSoln.Domain.Entities.Post", "Post")
-                        .WithMany("Likes")
+                        .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -207,6 +155,28 @@ namespace SocialMediaSoln.Persistence.Migrations
                     b.Navigation("Post");
                 });
 
+            modelBuilder.Entity("SocialMediaSoln.Domain.Entities.Follower", b =>
+                {
+                    b.HasOne("SocialMediaSoln.Domain.Entities.AppUser", "AppUser")
+                        .WithMany("Followers")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("SocialMediaSoln.Domain.Entities.Following", b =>
+                {
+                    b.HasOne("SocialMediaSoln.Domain.Entities.AppUser", "AppUser")
+                        .WithMany("Followings")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("SocialMediaSoln.Domain.Entities.Post", b =>
                 {
                     b.HasOne("SocialMediaSoln.Domain.Entities.AppUser", "AppUser")
@@ -215,32 +185,21 @@ namespace SocialMediaSoln.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SocialMediaSoln.Domain.Entities.Community", "Community")
-                        .WithMany("Posts")
-                        .HasForeignKey("CommunityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("AppUser");
-
-                    b.Navigation("Community");
                 });
 
             modelBuilder.Entity("SocialMediaSoln.Domain.Entities.AppUser", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("Followers");
 
-                    b.Navigation("Posts");
-                });
+                    b.Navigation("Followings");
 
-            modelBuilder.Entity("SocialMediaSoln.Domain.Entities.Community", b =>
-                {
                     b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("SocialMediaSoln.Domain.Entities.Post", b =>
                 {
-                    b.Navigation("Likes");
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

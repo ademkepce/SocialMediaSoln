@@ -11,5 +11,6 @@ namespace SocialMediaSoln.Application.Interfaces
         Task UpdateAsync(T entity);
         Task<int> SaveChangesAsync();
         Task Remove(T entity);
+        IQueryable<T> GetQueryable();
     }
 }

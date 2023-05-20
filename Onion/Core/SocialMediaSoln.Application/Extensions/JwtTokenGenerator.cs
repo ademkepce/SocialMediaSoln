@@ -30,7 +30,7 @@ namespace SocialMediaSoln.Application.Extensions
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
 
-            return new TokenResponseDto(tokenHandler.WriteToken(token), expireDate);
+            return new TokenResponseDto(tokenHandler.WriteToken(token), expireDate, dto.Id);
         }
     }
 }

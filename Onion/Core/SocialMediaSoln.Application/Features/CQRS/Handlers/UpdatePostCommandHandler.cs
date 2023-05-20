@@ -28,7 +28,7 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
                 updatedEntity.Title = request.Title;
                 updatedEntity.Content = request.Content;
                 updatedEntity.PublishedDate = request.PublishedDate;
-                updatedEntity.Comments = request.Comments;
+                //updatedEntity.Comments = request.Comments;
                 await this._repository.SaveChangesAsync();
             }
 

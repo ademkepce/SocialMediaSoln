@@ -25,7 +25,7 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
         public async Task<CheckUserResponseDto?> Handle(CheckUserQueryRequest request, CancellationToken cancellationToken)
         {
             var checkUserDto = new CheckUserResponseDto();
-            var user = await _repository.GetByFilterAsync(x => x.Email == request.Username && x.Password == request.Password);
+            var user = await _repository.GetByFilterAsync(x => x.Email == request.Email && x.Password == request.Password);
 
             if(user == null)
             {

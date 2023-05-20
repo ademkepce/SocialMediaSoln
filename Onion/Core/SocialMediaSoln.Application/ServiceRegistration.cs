@@ -15,7 +15,11 @@ namespace SocialMediaSoln.Application
             {
                 opt.AddProfiles(new List<Profile>
                 {
-                    new PostMapping()
+                    new PostMapping(),
+                    new UserMapping(),
+                    new FollowerMapping(),
+                    new FollowingMapping(),
+                    new CommentMapping()
                 });
             });
         }

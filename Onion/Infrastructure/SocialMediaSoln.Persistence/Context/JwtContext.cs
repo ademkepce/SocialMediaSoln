@@ -17,17 +17,16 @@ namespace SocialMediaSoln.Persistence.Context
         }
 
         public DbSet<AppUser>? AppUsers { get; set; }
-        public DbSet<Post>? Posts { get; set; }
         public DbSet<Comment>? Comments { get; set; }
-        public DbSet<Community>? Communities { get; set; }
         public DbSet<Follower>? Followers { get; set; }
         public DbSet<Following>? Followings { get; set; }
-        public DbSet<Like>? Likes { get; set; }
+        public DbSet<Post>? Posts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new PostConfiguration());
-            modelBuilder.ApplyConfiguration(new LikeConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new FollowerConfiguration());
+            modelBuilder.ApplyConfiguration(new FollowingConfiguration());
+            modelBuilder.ApplyConfiguration(new PostConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 
 namespace SocialMediaSoln.Application.Features.CQRS.Queries
 {
-    public class CheckUserQueryRequest : IRequest<CheckUserResponseDto>
+    public class GetUserQueryRequest : IRequest<UserListDto>
     {
-        public string? Email { get; set; }
-        public string? Password { get; set; }
+        public int Id { get; set; }
 
+        public GetUserQueryRequest(int id)
+        {
+            Id = id;
+        }
     }
 }

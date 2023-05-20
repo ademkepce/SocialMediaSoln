@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialMediaSoln.Persistence.Context;
 
@@ -10,9 +11,10 @@ using SocialMediaSoln.Persistence.Context;
 namespace SocialMediaSoln.Persistence.Migrations
 {
     [DbContext(typeof(JwtContext))]
-    partial class JwtContextModelSnapshot : ModelSnapshot
+    [Migration("20230504214929_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,9 +89,12 @@ namespace SocialMediaSoln.Persistence.Migrations
                     b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("FollowerId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
+                    b.HasIndex("FollowerId");
 
                     b.ToTable("Followers");
                 });
@@ -105,9 +110,12 @@ namespace SocialMediaSoln.Persistence.Migrations
                     b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("FollowingId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
+                    b.HasIndex("FollowingId");
 
                     b.ToTable("Followings");
                 });
@@ -157,7 +165,7 @@ namespace SocialMediaSoln.Persistence.Migrations
                 {
                     b.HasOne("SocialMediaSoln.Domain.Entities.AppUser", "AppUser")
                         .WithMany("Followers")
-                        .HasForeignKey("AppUserId")
+                        .HasForeignKey("FollowerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -168,7 +176,7 @@ namespace SocialMediaSoln.Persistence.Migrations
                 {
                     b.HasOne("SocialMediaSoln.Domain.Entities.AppUser", "AppUser")
                         .WithMany("Followings")
-                        .HasForeignKey("AppUserId")
+                        .HasForeignKey("FollowingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

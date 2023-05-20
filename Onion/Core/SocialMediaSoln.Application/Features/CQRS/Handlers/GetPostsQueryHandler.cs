@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SocialMediaSoln.Application.Dto;
 using SocialMediaSoln.Application.Features.CQRS.Queries;
 using SocialMediaSoln.Application.Interfaces;
@@ -20,9 +21,8 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
 
         public async Task<List<PostListDto>> Handle(GetPostsQueryRequest request, CancellationToken cancellationToken)
         {
-            var posts = await _repository.GetAllAsync();
+            var posts = _repository.GetQueryable().Include(x => x.AppUser).Include(x => x.Comments);
             return _mapper.Map<List<PostListDto>>(posts);
-
         }
     }
 }

@@ -14,7 +14,7 @@ namespace SocialMediaSoln.Application.Dto
         public string? Content { get; set; }
         public string? PublishedDate { get; set; }
         public int LikeCount { get; set; }
-        public AppUser? AppUser { get; set; }
-        public List<Comment>? Comments { get; set; }
+        public PostUsersDto? AppUser { get; set; }
+        public List<PostCommentDto>? Comments { get; set; }
     }
 }

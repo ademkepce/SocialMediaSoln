@@ -13,7 +13,7 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
         private readonly IRepository<Post> _repository;
         private readonly IMapper _mapper;
 
-        public GetPostsQueryHandler(IRepository<Post> repository, IMapper mapper)
+        public GetPostsQueryHandler(IRepository<Post> repository, IMapper mapper, IRepository<AppUser> repositoryUser)
         {
             _repository = repository;
             _mapper = mapper;
@@ -21,7 +21,7 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
 
         public async Task<List<PostListDto>> Handle(GetPostsQueryRequest request, CancellationToken cancellationToken)
         {
-            var posts = _repository.GetQueryable().Include(x => x.AppUser).Include(x => x.Comments);
+            var posts = await _repository.GetQueryable().Include(x => x.AppUser).Include(x => x.Comments).ThenInclude(x=>x.AppUser).ToListAsync();
             return _mapper.Map<List<PostListDto>>(posts);
         }
     }

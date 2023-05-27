@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace SocialMediaSoln.Application.Dto
 {
-    public class PostCommentDto
+    public class UsersPostDto
     {
         public int Id { get; set; }
-        public string? Message { get; set; }
+        public string? Title { get; set; }
+        public string? Content { get; set; }
         public string? PublishedDate { get; set; }
-        public CommentUsersDto? AppUser { get; set; }
+        public int LikeCount { get; set; }
+        public List<PostCommentDto>? Comments { get; set; }
     }
 }

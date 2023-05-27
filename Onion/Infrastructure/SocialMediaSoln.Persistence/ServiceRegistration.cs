@@ -4,11 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using SocialMediaSoln.Application.Interfaces;
 using SocialMediaSoln.Persistence.Context;
 using SocialMediaSoln.Persistence.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SocialMediaSoln.Persistence
 {

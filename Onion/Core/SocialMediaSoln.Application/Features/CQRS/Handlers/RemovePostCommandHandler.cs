@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SocialMediaSoln.Application.Features.CQRS.Handlers
 {
-    internal class RemovePostCommandHandler : IRequestHandler<RemovePostCommandRequest>
+    public class RemovePostCommandHandler : IRequestHandler<RemovePostCommandRequest>
     {
         private readonly IRepository<Post> _repository;
 

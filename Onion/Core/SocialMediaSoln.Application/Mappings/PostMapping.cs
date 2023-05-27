@@ -15,6 +15,7 @@ namespace SocialMediaSoln.Application.Mappings
         {
             this.CreateMap<Post, PostListDto>().ReverseMap();
             this.CreateMap<Post, CreatedPostDto>().ReverseMap();
+            this.CreateMap<Post, UsersPostDto>().ReverseMap();
         }
     }
 }

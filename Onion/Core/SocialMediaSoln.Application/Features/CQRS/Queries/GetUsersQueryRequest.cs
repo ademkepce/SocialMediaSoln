@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SocialMediaSoln.Application.Features.CQRS.Queries
 {
-    public class GetUsersQueryRequest : IRequest<List<UserListDto>>
+    public class GetUsersQueryRequest : IRequest<List<UsersListDto>>
     {
     }
 }

@@ -1,7 +1,12 @@
-﻿
-namespace SocialMediaSoln.Domain.Entities
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SocialMediaSoln.Application.Dto
 {
-    public class AppUser
+    public class CommentUsersDto
     {
         public int Id { get; set; }
         public string? Email { get; set; }
@@ -10,9 +15,5 @@ namespace SocialMediaSoln.Domain.Entities
         public string? Surname { get; set; }
         public string? Part { get; set; }
         public string? ProfileImagUrl { get; set; }
-        public List<Post>? Posts { get; set; }
-        public List<Follower>? Followers { get; set; }
-        public List<Following>? Followings { get; set; }
-        public List<Comment>? Comments { get; set; }
     }
 }

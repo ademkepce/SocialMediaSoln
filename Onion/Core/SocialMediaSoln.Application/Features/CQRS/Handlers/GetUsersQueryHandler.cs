@@ -8,22 +8,30 @@ using SocialMediaSoln.Domain.Entities;
 
 namespace SocialMediaSoln.Application.Features.CQRS.Handlers
 {
-    public class GetUsersQueryHandler : IRequestHandler<GetUsersQueryRequest, List<UserListDto>>
+    public class GetUsersQueryHandler : IRequestHandler<GetUsersQueryRequest, List<UsersListDto>>
     {
         private readonly IRepository<AppUser> _repository;
-        //private readonly IRepository<Post> _repository;
+        private readonly IRepository<Post> _repositoryPost;
         private readonly IMapper _mapper;
 
-        public GetUsersQueryHandler(IRepository<AppUser> repository, IMapper mapper)
+        public GetUsersQueryHandler(IRepository<AppUser> repository, IMapper mapper, IRepository<Post> repositoryPost)
         {
             _repository = repository;
+            _repositoryPost = repositoryPost;
             _mapper = mapper;
         }
 
-        public async Task<List<UserListDto>> Handle(GetUsersQueryRequest request, CancellationToken cancellationToken)
+        public async Task<List<UsersListDto>> Handle(GetUsersQueryRequest request, CancellationToken cancellationToken)
         {
-            var users = _repository.GetQueryable().Include(x => x.Followers).Include(x => x.Followings).Include(x => x.Posts);
-            return _mapper.Map<List<UserListDto>>(users);
+            var userListDto = new UsersListDto();
+            var users = _repository.GetQueryable().Include(x => x.Followers).Include(x => x.Followings);
+
+            var posts = _repositoryPost.GetQueryable().Include(x => x.Comments).ToList();
+            var postMapping = _mapper.Map<List<UsersPostDto>>(posts);
+
+            userListDto.Posts = postMapping;
+
+            return _mapper.Map<List<UsersListDto>>(users);
         }
     }
 }

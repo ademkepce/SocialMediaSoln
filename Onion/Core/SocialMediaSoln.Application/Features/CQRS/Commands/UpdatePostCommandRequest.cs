@@ -8,6 +8,6 @@ namespace SocialMediaSoln.Application.Features.CQRS.Commands
         public string? Title { get; set; }
         public string? Content { get; set; }
         public string? PublishedDate { get; set; }
-        public int Comments { get; set; }
+        public int LikeCount { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace SocialMediaSoln.Application.Mappings
         public CommentMapping()
         {
             this.CreateMap<Comment, PostCommentDto>().ReverseMap();
+            this.CreateMap<Comment, CreatedCommentDto>().ReverseMap();
         }
     }
 }

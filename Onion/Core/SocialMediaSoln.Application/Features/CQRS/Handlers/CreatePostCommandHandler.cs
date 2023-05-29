@@ -25,9 +25,8 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
                 Title = request.Title,
                 Content = request.Content,
                 PublishedDate = request.PublishedDate,
-                //Comments = request.Comments,
-                AppUserId = request.AppUserId,
-                //CommunityId = request.CommunityId
+                LikeCount = request.LikeCount,
+                AppUserId = request.AppUserId
             };
             var result = await _repository.CreateAsync(post);
 

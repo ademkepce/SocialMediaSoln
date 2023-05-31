@@ -22,10 +22,8 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
         {
             var post = new Post
             {
-                Title = request.Title,
                 Content = request.Content,
                 PublishedDate = request.PublishedDate,
-                LikeCount = request.LikeCount,
                 AppUserId = request.AppUserId
             };
             var result = await _repository.CreateAsync(post);

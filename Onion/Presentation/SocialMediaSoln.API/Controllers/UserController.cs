@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SocialMediaSoln.Application.Features.CQRS.Commands;
 using SocialMediaSoln.Application.Features.CQRS.Queries;
 
 namespace SocialMediaSoln.API.Controllers
@@ -28,6 +29,13 @@ namespace SocialMediaSoln.API.Controllers
         {
             var result = await _mediator.Send(new GetUserQueryRequest(id));
             return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromForm]CreateUserCommandRequest request)
+        {
+            var result = await _mediator.Send(request);
+            return Created("", result);
         }
     }
 }

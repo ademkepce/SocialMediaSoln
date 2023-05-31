@@ -9,6 +9,7 @@ namespace SocialMediaSoln.Application.Mappings
         public FollowingMapping()
         {
             this.CreateMap<Following, FollowingListDto>().ReverseMap();
+            this.CreateMap<Following, CreatedFollowingDto>().ReverseMap();
         }
     }
 }

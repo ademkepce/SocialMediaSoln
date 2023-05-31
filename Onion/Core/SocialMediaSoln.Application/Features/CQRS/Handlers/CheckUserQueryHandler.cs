@@ -37,6 +37,10 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
                 checkUserDto.Email = user.Email;
                 checkUserDto.Password = user.Password;
                 checkUserDto.Id = user.Id;
+                checkUserDto.IsGroup = user.IsGroup;
+                checkUserDto.Name = user.Name;
+                checkUserDto.Surname = user.Surname;
+                checkUserDto.ImageUrl = user.ProfileImageUrl;
             }
             return checkUserDto;
         }

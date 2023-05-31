@@ -25,9 +25,6 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
             var updatedEntity = await _repository.GetByIdAsync(request.Id);
             if(updatedEntity != null)
             {
-                updatedEntity.Title = request.Title;
-                updatedEntity.Content = request.Content;
-                updatedEntity.PublishedDate = request.PublishedDate;
                 updatedEntity.LikeCount = request.LikeCount;
                 await this._repository.SaveChangesAsync();
             }

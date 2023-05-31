@@ -1,4 +1,6 @@
-﻿
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SocialMediaSoln.Domain.Entities
 {
     public class AppUser
@@ -9,7 +11,9 @@ namespace SocialMediaSoln.Domain.Entities
         public string? Name { get; set; }
         public string? Surname { get; set; }
         public string? Part { get; set; }
-        public string? ProfileImagUrl { get; set; }
+        [NotMapped]
+        public IFormFile? File { get; set; }
+        public string? ProfileImageUrl { get; set; }
         public bool IsGroup { get; set; }
         public List<Post>? Posts { get; set; }
         public List<Follower>? Followers { get; set; }

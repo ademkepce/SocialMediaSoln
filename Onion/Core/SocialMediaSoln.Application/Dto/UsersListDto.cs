@@ -15,6 +15,7 @@ namespace SocialMediaSoln.Application.Dto
         public string? Surname { get; set; }
         public string? Part { get; set; }
         public string? ProfileImagUrl { get; set; }
+        public bool? IsGroup { get; set; }
         public List<UsersPostDto>? Posts { get; set; }
         public List<FollowerListDto>? Followers { get; set; }
         public List<FollowingListDto>? Followings { get; set; }

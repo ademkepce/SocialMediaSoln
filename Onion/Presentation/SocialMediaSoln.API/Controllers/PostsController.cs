@@ -51,5 +51,12 @@ namespace SocialMediaSoln.API.Controllers
             await _mediator.Send(new RemovePostCommandRequest(id));
             return Ok();
         }
+
+        [HttpGet("followerPost/{appUserId}")]
+        public async Task<IActionResult> FollowerPostList(int appUserId)
+        {
+            var result = await _mediator.Send(new GetPostsFollowerQueryRequest(appUserId));
+            return Ok(result);
+        }
     }
 }

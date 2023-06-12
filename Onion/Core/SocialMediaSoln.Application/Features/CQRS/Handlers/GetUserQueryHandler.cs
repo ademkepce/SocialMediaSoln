@@ -20,7 +20,7 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
         }
         public async Task<UserListDto> Handle(GetUserQueryRequest request, CancellationToken cancellationToken)
         {
-            var data = await _repository.GetQueryable().Where(x => x.Id == request.Id).Include(x => x.Posts).ThenInclude(x => x.Comments).ThenInclude(x=>x.AppUser).Include(x=>x.Followers).Include(x=>x.Followings).FirstOrDefaultAsync();
+            var data = await _repository.GetQueryable().Where(x => x.Id == request.Id).Include(x => x.Posts).ThenInclude(x => x.Comments).ThenInclude(x=>x.AppUser).Include(x=>x.Followers).Include(x=>x.Followings).Include(x => x.Likes).FirstOrDefaultAsync();
             return _mapper.Map<UserListDto>(data);
         }
     }

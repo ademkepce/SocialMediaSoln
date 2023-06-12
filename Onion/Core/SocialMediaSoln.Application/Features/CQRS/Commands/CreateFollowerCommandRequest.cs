@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace SocialMediaSoln.Application.Features.CQRS.Commands
 {
-    public class CreateFollowerCommandRequest : IRequest<CreatedFollowerDto?>
+    public class CreateFollowerCommandRequest : IRequest
     {
+        public int? FollowerId { get; set; }
         public int? AppUserId { get; set; }
     }
 }

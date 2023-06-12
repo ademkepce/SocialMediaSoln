@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http;
 using SocialMediaSoln.Application.Dto;
 using SocialMediaSoln.Application.Features.CQRS.Commands;
 using SocialMediaSoln.Application.Interfaces;
 using SocialMediaSoln.Domain.Entities;
+using System.Net;
+using System.Net.Security;
 
 namespace SocialMediaSoln.Application.Features.CQRS.Handlers
 {
@@ -36,16 +39,33 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
 
             return _mapper.Map<CreatedUserDto>(result);
         }
-
         public async Task<string> UploadImage(IFormFile file)
         {
             var special = Guid.NewGuid().ToString();
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"Utility\Image", special + file.FileName);
-            using (FileStream ms = new FileStream(filePath,FileMode.Create)) {
-                await file.CopyToAsync(ms);
+            var wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            var imagesPath = Path.Combine(wwwrootPath, "Images");
+            var fileName = special + "_" + file.FileName;
+            var filePath = Path.Combine(imagesPath, fileName).Replace("\\", "/");
+
+            Directory.CreateDirectory(imagesPath);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
             }
-            var filename = special + "-" + file.FileName;
-            return filePath;
+
+            var relativePath = $"{fileName}";
+
+            return relativePath;
         }
+
+        //public string GetImageUrl(string relativePath)
+        //{
+        //    var baseUrl = "https://sausocialmedia.com.tr";
+        //    var imageUrl = $"{baseUrl}{relativePath}";
+
+        //    return imageUrl;
+        //}
+
     }
 }

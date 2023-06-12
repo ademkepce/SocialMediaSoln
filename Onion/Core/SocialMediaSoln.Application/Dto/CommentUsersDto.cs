@@ -13,7 +13,7 @@ namespace SocialMediaSoln.Application.Dto
         public string? Name { get; set; }
         public string? Surname { get; set; }
         public string? Part { get; set; }
-        public string? ProfileImagUrl { get; set; }
+        public string? ProfileImageUrl { get; set; }
         public bool? IsGroup { get; set; }
     }
 }

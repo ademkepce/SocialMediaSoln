@@ -7,26 +7,26 @@ namespace SocialMediaSoln.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FollowingController : ControllerBase
+    public class LikeController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public FollowingController(IMediator mediator)
+        public LikeController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateFollowingCommandRequest request)
+        public async Task<IActionResult> Create(CreateLikeCommandRequest request)
         {
             var result = await _mediator.Send(request);
             return Created("", result);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Remove(int id)
+        [HttpDelete("{appUserId}/{postId}")]
+        public async Task<IActionResult> Remove(int appUserId, int postId)
         {
-            await _mediator.Send(new RemoveFollowingCommandRequest(id));
+            await _mediator.Send(new RemoveLikeCommandRequest(appUserId, postId));
             return Ok();
         }
     }

@@ -23,10 +23,10 @@ namespace SocialMediaSoln.API.Controllers
             return Created("", result);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Remove(int id)
+        [HttpDelete("{followerId}/{appUserId}")]
+        public async Task<IActionResult> Remove(int followerId, int appUserId)
         {
-            await _mediator.Send(new RemoveFollowerCommandRequest(id));
+            await _mediator.Send(new RemoveFollowerCommandRequest(followerId, appUserId));
             return Ok();
         }
     }

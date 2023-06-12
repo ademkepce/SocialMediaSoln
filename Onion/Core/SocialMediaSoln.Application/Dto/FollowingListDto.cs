@@ -8,7 +8,6 @@ namespace SocialMediaSoln.Application.Dto
 {
     public class FollowingListDto
     {
-        public int Id { get; set; }
-        public int AppUserId { get; set; }
+        public int? FollowingId { get; set; }
     }
 }

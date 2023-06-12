@@ -20,7 +20,7 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
         }
         public async Task<PostListDto> Handle(GetPostQueryRequest request, CancellationToken cancellationToken)
         {
-            var data = await _repository.GetQueryable().Where(x => x.Id == request.Id).Include(x => x.AppUser).Include(x => x.Comments).ThenInclude(x => x.AppUser).FirstOrDefaultAsync();
+            var data = await _repository.GetQueryable().Where(x => x.Id == request.Id).Include(x => x.AppUser).ThenInclude(x=>x.Followers).Include(x => x.Comments).ThenInclude(x => x.AppUser).Include(x => x.Likes).FirstOrDefaultAsync();
             return _mapper.Map<PostListDto>(data);
         }
     }

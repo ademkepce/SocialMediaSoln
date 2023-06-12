@@ -20,4 +20,12 @@
     <ProjectReference Include="..\..\Infrastructure\SocialMediaSoln.Persistence\SocialMediaSoln.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\147473e5-e1d1-4e66-b2bf-3050c7a9ceac_fatma.jpg" />
+  </ItemGroup>
+
 </Project>

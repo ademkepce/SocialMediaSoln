@@ -19,7 +19,8 @@ namespace SocialMediaSoln.Application
                     new UserMapping(),
                     new FollowerMapping(),
                     new FollowingMapping(),
-                    new CommentMapping()
+                    new CommentMapping(),
+                    new LikeMapping(),
                 });
             });
         }

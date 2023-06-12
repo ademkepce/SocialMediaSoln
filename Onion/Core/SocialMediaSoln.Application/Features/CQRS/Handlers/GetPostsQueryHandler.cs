@@ -8,21 +8,21 @@ using SocialMediaSoln.Domain.Entities;
 
 namespace SocialMediaSoln.Application.Features.CQRS.Handlers
 {
-    public class GetPostsQueryHandler : IRequestHandler<GetPostsQueryRequest, List<PostListDto>>
+    public class GetPostsQueryHandler : IRequestHandler<GetPostsQueryRequest, List<PostsListDto>>
     {
         private readonly IRepository<Post> _repository;
         private readonly IMapper _mapper;
 
-        public GetPostsQueryHandler(IRepository<Post> repository, IMapper mapper, IRepository<AppUser> repositoryUser)
+        public GetPostsQueryHandler(IRepository<Post> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public async Task<List<PostListDto>> Handle(GetPostsQueryRequest request, CancellationToken cancellationToken)
+        public async Task<List<PostsListDto>> Handle(GetPostsQueryRequest request, CancellationToken cancellationToken)
         {
-            var posts = await _repository.GetQueryable().Include(x => x.AppUser).Include(x => x.Comments).ThenInclude(x=>x.AppUser).ToListAsync();
-            return _mapper.Map<List<PostListDto>>(posts);
+            var posts = await _repository.GetQueryable().Include(x => x.AppUser).Include(x => x.Comments).ThenInclude(x=>x.AppUser).Include(x=>x.Likes).ToListAsync();
+            return _mapper.Map<List<PostsListDto>>(posts);
         }
     }
 }

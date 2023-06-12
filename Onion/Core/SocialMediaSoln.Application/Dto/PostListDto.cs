@@ -1,5 +1,4 @@
-﻿using SocialMediaSoln.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +11,8 @@ namespace SocialMediaSoln.Application.Dto
         public int Id { get; set; }
         public string? Content { get; set; }
         public string? PublishedDate { get; set; }
-        public int LikeCount { get; set; }
-        public PostUsersDto? AppUser { get; set; }
+        public PostUserDto? AppUser { get; set; }
         public List<PostCommentDto>? Comments { get; set; }
+        public List<PostLikesDto>? Likes { get; set; }
     }
 }

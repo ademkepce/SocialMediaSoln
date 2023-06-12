@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SocialMediaSoln.Application.Dto
 {
-    public class CreatedFollowerDto
+    public class CreatedLikeDto
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
     }
 }

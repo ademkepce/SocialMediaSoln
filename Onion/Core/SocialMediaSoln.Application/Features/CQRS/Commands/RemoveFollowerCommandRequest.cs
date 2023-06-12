@@ -9,10 +9,12 @@ namespace SocialMediaSoln.Application.Features.CQRS.Commands
 {
     public class RemoveFollowerCommandRequest : IRequest
     {
-        public int Id { get; set; }
-        public RemoveFollowerCommandRequest(int id)
+        public int? FollowerId { get; set; }
+        public int? AppUserId { get; set; }
+        public RemoveFollowerCommandRequest(int followerId, int appUserId)
         {
-            Id = id;
+            FollowerId = followerId;
+            AppUserId = appUserId;
         }
     }
 }

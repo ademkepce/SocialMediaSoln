@@ -24,7 +24,7 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
         public async Task<List<UsersListDto>> Handle(GetUsersQueryRequest request, CancellationToken cancellationToken)
         {
             var userListDto = new UsersListDto();
-            var users = _repository.GetQueryable().Include(x => x.Followers).Include(x => x.Followings);
+            var users = _repository.GetQueryable().Include(x => x.Followers).Include(x => x.Followings).Include(x => x.Likes);
 
             var posts = _repositoryPost.GetQueryable().Include(x => x.Comments).ToList();
             var postMapping = _mapper.Map<List<UsersPostDto>>(posts);

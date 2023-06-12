@@ -12,26 +12,37 @@ using System.Threading.Tasks;
 
 namespace SocialMediaSoln.Application.Features.CQRS.Handlers
 {
-    public class CreateFollowerCommandHandler : IRequestHandler<CreateFollowerCommandRequest, CreatedFollowerDto?>
+    public class CreateFollowerCommandHandler : IRequestHandler<CreateFollowerCommandRequest>
     {
         private readonly IRepository<Follower> _repository;
+        private readonly IRepository<Following> _repositoryFollowing;
         private readonly IMapper _mapper;
 
-        public CreateFollowerCommandHandler(IRepository<Follower> repository, IMapper mapper)
+        public CreateFollowerCommandHandler(IRepository<Follower> repository, IRepository<Following> repositoryFollowing, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
+            _repositoryFollowing = repositoryFollowing;
         }
 
-        public async Task<CreatedFollowerDto?> Handle(CreateFollowerCommandRequest request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateFollowerCommandRequest request, CancellationToken cancellationToken)
         {
             var follower = new Follower
             {
+                FollowerId = request.FollowerId,
                 AppUserId = request.AppUserId
             };
-            var result = await _repository.CreateAsync(follower);
 
-            return _mapper.Map<CreatedFollowerDto>(result);
+            var following = new Following
+            {
+                FollowingId = request.AppUserId,
+                AppUserId = request.FollowerId
+            };
+
+            await _repositoryFollowing.CreateAsync(following);
+            await _repository.CreateAsync(follower);
+
+            return Unit.Value;
         }
     }
 }

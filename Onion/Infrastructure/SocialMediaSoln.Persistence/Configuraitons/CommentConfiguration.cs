@@ -13,7 +13,7 @@ namespace SocialMediaSoln.Persistence.Configuraitons
     {
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.HasOne(x => x.Post).WithMany(x => x.Comments).HasForeignKey(x => x.PostId);
+            builder.HasOne(x => x.Post).WithMany(x => x.Comments).HasForeignKey(x => x.PostId).OnDelete(DeleteBehavior.Cascade); ;
             builder.HasOne(x => x.AppUser).WithMany(x => x.Comments).HasForeignKey(x => x.AppUserId);
         }
     }

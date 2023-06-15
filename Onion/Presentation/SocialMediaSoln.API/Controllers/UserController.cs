@@ -71,5 +71,12 @@ namespace SocialMediaSoln.API.Controllers
             var result = await _mediator.Send(request);
             return Created("", result);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromForm] UpdateUserCommandRequest request)
+        {
+            await _mediator.Send(request);
+            return NoContent();
+        }
     }
 }

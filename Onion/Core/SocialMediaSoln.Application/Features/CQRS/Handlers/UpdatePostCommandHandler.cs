@@ -1,14 +1,7 @@
-﻿using AutoMapper;
-using MediatR;
-using SocialMediaSoln.Application.Dto;
+﻿using MediatR;
 using SocialMediaSoln.Application.Features.CQRS.Commands;
 using SocialMediaSoln.Application.Interfaces;
 using SocialMediaSoln.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SocialMediaSoln.Application.Features.CQRS.Handlers
 {
@@ -23,11 +16,18 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
         public async Task<Unit> Handle(UpdatePostCommandRequest request, CancellationToken cancellationToken)
         {
             var updatedEntity = await _repository.GetByIdAsync(request.Id);
-            if(updatedEntity != null)
+            if (updatedEntity != null)
             {
-                updatedEntity.Content = request.Content;
-                updatedEntity.PublishedDate = request.PublishedDate;
-                updatedEntity.AppUserId = request.AppUserId;
+                // Güncellenecek alanları kontrol ederek güncelleme yapın
+                if (request.Content != null)
+                    updatedEntity.Content = request.Content;
+
+                if (request.PublishedDate != null)
+                    updatedEntity.PublishedDate = request.PublishedDate;
+
+                if (request.AppUserId != null)
+                    updatedEntity.AppUserId = request.AppUserId;
+
                 await this._repository.SaveChangesAsync();
             }
 

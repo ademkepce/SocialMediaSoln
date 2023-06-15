@@ -24,7 +24,9 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
 
         public async Task<CreatedUserDto?> Handle(CreateUserCommandRequest request, CancellationToken cancellationToken)
         {
-            string path = await UploadImage(request.File);
+            string path = "";
+            if (request.File != null)
+                path = await UploadImage(request.File);
             var post = new AppUser
             {
                 Email = request.Email,
@@ -32,7 +34,7 @@ namespace SocialMediaSoln.Application.Features.CQRS.Handlers
                 Name = request.Name,
                 Surname = request.Surname,
                 Part = request.Part,
-                IsGroup = request.IsGroup,
+                IsGroup = request.IsGroup.Value,
                 ProfileImageUrl = path
             };
             var result = await _repository.CreateAsync(post);
